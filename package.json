@@ -1,0 +1,22 @@
+{
+  "name": "gocreators",
+  "version": "1.0.0",
+  "description": "Go Creators - Cinema & Short-Form Networking and Talent Platform",
+  "scripts": {
+    "start": "node server/server.js",
+    "seed": "node server/seed.js",
+    "build": "npm --prefix client run build",
+    "client": "npm --prefix client run dev",
+    "server": "npm --prefix server run dev",
+    "test:verify": "node server/test-verify.js"
+  },
+  "keywords": [
+    "cinema",
+    "short-film",
+    "networking",
+    "talent-discovery",
+    "creators"
+  ],
+  "author": "Go Creators Team",
+  "license": "ISC"
+}

@@ -86,7 +86,7 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
 
   return (
     <div className="bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-2xl flex flex-col h-full max-h-[820px] overflow-hidden">
-      
+
       {/* Header matching mockup */}
       <div className="p-4 bg-slate-950/80 border-b border-slate-800/80 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -95,7 +95,7 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
           </div>
           <div>
             <h3 className="text-xs font-black tracking-wider text-slate-100 uppercase">
-              GOCRATERS AI ASSISTANT
+              GOCREATORS AI ASSISTANT
             </h3>
             <span className="text-[10px] text-blue-400 font-medium flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
@@ -103,9 +103,8 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
             </span>
           </div>
         </div>
-
         {onClose && (
-          <button 
+          <button
             onClick={onClose}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"
           >
@@ -129,11 +128,10 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
             className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
           >
             <div
-              className={`max-w-[90%] rounded-2xl p-3.5 leading-relaxed ${
-                msg.sender === 'user'
+              className={`max-w-[90%] rounded-2xl p-3.5 leading-relaxed ${msg.sender === 'user'
                   ? 'bg-blue-600 text-white font-medium rounded-tr-xs shadow-md'
                   : 'bg-slate-800/90 text-slate-200 border border-slate-700/60 rounded-tl-xs shadow-inner'
-              }`}
+                }`}
             >
               <div className="whitespace-pre-wrap space-y-1">
                 {msg.text}
@@ -146,7 +144,7 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
                     Recommended Talent:
                   </div>
                   {msg.matchedCrew.map((c) => (
-                    <div 
+                    <div
                       key={c._id}
                       onClick={() => onNavigateCategory && onNavigateCategory(c.role.toLowerCase())}
                       className="flex items-center justify-between p-1.5 bg-slate-900/60 rounded-lg hover:bg-slate-900 cursor-pointer border border-slate-700/40"

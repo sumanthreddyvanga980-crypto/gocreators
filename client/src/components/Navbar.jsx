@@ -9,14 +9,14 @@ export const Navbar = ({ onOpenAi, onOpenNotifications, onOpenAuth, onOpenModera
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 lg:px-8 py-3 transition-all">
       <div className="max-w-[1720px] mx-auto flex items-center justify-between gap-4">
-        
+
         {/* Left: Brand Logo */}
-        <div className="flex items-center gap-2 cursor-pointer select-none">
+        <div className="flex items-center gap-2.5 cursor-pointer select-none">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-700 via-blue-600 to-sky-400 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
             <Film className="w-4 h-4" />
           </div>
           <span className="font-extrabold tracking-wider text-xl text-slate-900 font-sans flex items-center">
-            GO<span className="text-blue-600">CRATERS</span>
+            GO<span className="text-blue-600">CREATORS</span>
           </span>
           <span className="hidden md:inline-block text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
             Cinema Net
@@ -25,7 +25,7 @@ export const Navbar = ({ onOpenAi, onOpenNotifications, onOpenAuth, onOpenModera
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          
+
           {/* AI Assistant Button (Styled like reference mockup) */}
           <button
             onClick={onOpenAi}
@@ -33,7 +33,7 @@ export const Navbar = ({ onOpenAi, onOpenNotifications, onOpenAuth, onOpenModera
             title="Open GoCreators AI Assistant"
           >
             <Sparkles className="w-3.5 h-3.5 animate-pulse text-sky-200" />
-            <span className="tracking-wide">GOCRATERS AI</span>
+            <span className="tracking-wide">GOCREATORS AI</span>
           </button>
 
           {/* Safety & Moderation Center Trigger */}
@@ -100,7 +100,7 @@ export const Navbar = ({ onOpenAi, onOpenNotifications, onOpenAuth, onOpenModera
 
             {/* Dropdown Menu */}
             {showUserDropdown && user && (
-              <div 
+              <div
                 className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-in fade-in slide-in-from-top-2"
                 onClick={() => setShowUserDropdown(false)}
               >
@@ -129,11 +129,10 @@ export const Navbar = ({ onOpenAi, onOpenNotifications, onOpenAuth, onOpenModera
                         loginWithDemo(acc.email);
                         setShowUserDropdown(false);
                       }}
-                      className={`w-full text-left px-3 py-1.5 text-xs rounded-lg flex items-center justify-between transition-colors ${
-                        user.email === acc.email
-                          ? 'bg-blue-50 text-blue-700 font-semibold'
-                          : 'text-slate-700 hover:bg-slate-50'
-                      }`}
+                      className={`w-full text-left px-3 py-1.5 text-xs rounded-lg flex items-center justify-between transition-colors ${user.email === acc.email
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        : 'text-slate-700 hover:bg-slate-50'
+                        }`}
                     >
                       <span>{acc.label}</span>
                       {user.email === acc.email && <span className="text-[10px] text-blue-600 font-bold">Active</span>}

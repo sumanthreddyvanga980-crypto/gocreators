@@ -210,7 +210,7 @@ export const Sidebar = ({
         </button>
       </div>
 
-      {/* Bottom Dock: GOCRATERS AI ASSISTANT Quick Widget */}
+      {/* Bottom Dock: GOCREATORS AI ASSISTANT Quick Widget */}
       <div className="pt-3 border-t border-slate-100">
         <div 
           onClick={onOpenAi}
@@ -220,7 +220,7 @@ export const Sidebar = ({
             <div className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-blue-400" />
               <span className="text-[11px] font-bold tracking-wide text-slate-200">
-                GOCRATERS AI
+                GOCREATORS AI
               </span>
             </div>
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>

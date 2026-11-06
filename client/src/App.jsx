@@ -128,14 +128,14 @@ export function App() {
         {/* Center Main Dashboard Area */}
         <main className="flex-1 min-w-0 p-4 lg:p-6 overflow-y-auto space-y-6">
           
-          {/* Dashboard Header Bar matching screenshot: "GOCRATERS - DASHBOARD" */}
+          {/* Dashboard Header Bar: "GOCREATORS - DASHBOARD" */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
                 Production Hub
               </span>
               <h1 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tight">
-                GOCRATERS - DASHBOARD
+                GOCREATORS - DASHBOARD
               </h1>
             </div>
 

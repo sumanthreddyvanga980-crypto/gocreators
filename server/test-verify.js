@@ -71,7 +71,7 @@ async function runSimulation() {
   console.log('  🔄 Candidate reset back to normal testing state.');
 
   // 5. Test GoCreators AI Assistant (Diner Scene Prompt)
-  console.log('\n🤖 [5/5] GOCRATERS AI ASSISTANT QUERY:');
+  console.log('\n🤖 [5/5] GOCREATORS AI ASSISTANT QUERY:');
   const prompt = 'Suggest 3 unique visual approaches for the diner scene';
   console.log(`  • Prompt: "${prompt}"`);
   

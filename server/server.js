@@ -54,6 +54,25 @@ app.use('/uploads', express.static(uploadsPath, {
 const clientDistPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(clientDistPath));
 
+// Database connection helper with connection pooling
+export const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log(`[Database]: Connected successfully to MongoDB at ${MONGODB_URI.split('@').pop()}`);
+  } catch (error) {
+    console.error('[Database Error]: Failed to connect to MongoDB:', error.message);
+  }
+};
+
+// Database auto-reconnect middleware (crucial for serverless environments like Vercel)
+app.use(async (req, res, next) => {
+  if (mongoose.connection.readyState < 1) {
+    await connectDB();
+  }
+  next();
+});
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/crew', crewRoutes);
@@ -101,23 +120,17 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Connect to MongoDB and start HTTP Server
+// Start HTTP Server when running standalone (not in Vercel serverless)
 const startServer = async () => {
-  try {
-    await mongoose.connect(MONGODB_URI);
-    console.log(`[Database]: Connected successfully to MongoDB at ${MONGODB_URI}`);
-
-    app.listen(PORT, () => {
-      console.log(`[Go Creators Server]: Running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error('[Database Error]: Failed to connect to MongoDB:', error.message);
-    console.log('[Retry]: Re-attempting connection in 5 seconds...');
-    setTimeout(startServer, 5000);
-  }
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`[Go Creators Server]: Running on http://localhost:${PORT}`);
+  });
 };
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 // Graceful shutdown handling
 process.on('SIGINT', async () => {
@@ -125,3 +138,5 @@ process.on('SIGINT', async () => {
   console.log('[Server]: Closed MongoDB connection and exiting gracefully.');
   process.exit(0);
 });
+
+export default app;

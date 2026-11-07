@@ -122,7 +122,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col selection:bg-amber-500 selection:text-black">
       
       {/* Top Navbar */}
       <Navbar
@@ -159,20 +159,21 @@ export function App() {
           {/* Dashboard Header Bar: "GOCREATORS - DASHBOARD" */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-                Production Hub
+              <span className="text-[10px] font-bold tracking-widest text-amber-400/90 uppercase flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                Director & Production Hub
               </span>
-              <h1 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tight">
-                GOCREATORS - DASHBOARD
+              <h1 className="text-xl lg:text-2xl font-black text-white tracking-tight">
+                GOCREATORS <span className="text-amber-400">—</span> DASHBOARD
               </h1>
             </div>
 
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowAddProjectModal(true)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-xs active:scale-95 transition-all"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black text-xs font-black shadow-lg shadow-amber-500/20 active:scale-95 transition-all"
               >
-                <Plus className="w-4 h-4 text-blue-400" />
+                <Plus className="w-4 h-4 stroke-[3]" />
                 <span>+ Add Project</span>
               </button>
             </div>
@@ -181,10 +182,11 @@ export function App() {
           {/* Section: My Projects */}
           <section className="space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-bold text-slate-800">
-                My Projects
+              <h2 className="text-sm font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+                <span className="w-1 h-3.5 bg-amber-400 rounded-full inline-block" />
+                Active Productions
               </h2>
-              <span className="text-xs text-blue-600 font-semibold cursor-pointer hover:underline">
+              <span className="text-xs text-amber-400 hover:text-amber-300 font-semibold cursor-pointer transition-colors">
                 View all ({projects.length || 1})
               </span>
             </div>
@@ -228,7 +230,7 @@ export function App() {
         </main>
 
         {/* Right Panels (Desktop Assistant & Chats matching screenshot) */}
-        <aside className="w-80 xl:w-96 flex-shrink-0 hidden xl:flex flex-col gap-5 p-4 lg:p-6 border-l border-slate-200 bg-slate-50/50 sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto scrollbar-thin">
+        <aside className="w-80 xl:w-96 flex-shrink-0 hidden xl:flex flex-col gap-5 p-4 lg:p-6 border-l border-slate-800/80 bg-[#0B0F19]/90 sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto scrollbar-thin">
           
           {/* GoCreators AI Assistant Panel */}
           <div className="h-[430px]">

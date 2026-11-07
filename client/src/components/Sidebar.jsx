@@ -76,23 +76,23 @@ export const Sidebar = ({
   };
 
   return (
-    <aside className="w-64 flex-shrink-0 hidden lg:flex flex-col border-r border-slate-200 bg-white h-[calc(100vh-61px)] sticky top-[61px] p-4 select-none overflow-y-auto">
+    <aside className="w-64 flex-shrink-0 hidden lg:flex flex-col border-r border-slate-800/80 bg-[#0B0F19] h-[calc(100vh-61px)] sticky top-[61px] p-4 select-none overflow-y-auto">
       
       {/* Category & Crew Search Input in Sidebar */}
       <div className="mb-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
           <input
             type="text"
             value={genreSearch}
             onChange={(e) => handleSidebarSearchChange(e.target.value)}
             placeholder="Search roles (e.g. writers, DOP)"
-            className="w-full pl-8 pr-7 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+            className="w-full pl-8 pr-7 py-1.5 text-xs bg-slate-900/90 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:bg-[#111827] transition-all"
           />
           {genreSearch && (
             <button
               onClick={() => handleSidebarSearchChange('')}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -101,21 +101,21 @@ export const Sidebar = ({
       </div>
 
       {/* Main Sections (Projects & Inbox) */}
-      <div className="space-y-1 mb-5">
+      <div className="space-y-1.5 mb-5">
         <button
           onClick={() => setActiveTab('projects')}
-          className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+          className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'projects'
-              ? 'bg-slate-900 text-white shadow-sm'
-              : 'text-slate-700 hover:bg-slate-100'
+              ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20 font-black'
+              : 'text-slate-300 hover:bg-slate-800/60'
           }`}
         >
           <div className="flex items-center gap-2.5">
-            <FolderKanban className="w-4 h-4 text-blue-500" />
+            <FolderKanban className={`w-4 h-4 ${activeTab === 'projects' ? 'text-black' : 'text-amber-400'}`} />
             <span>PROJECTS</span>
           </div>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-            activeTab === 'projects' ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'
+          <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+            activeTab === 'projects' ? 'bg-black/20 text-black' : 'bg-slate-800 text-slate-300'
           }`}>
             3 Active
           </span>
@@ -123,17 +123,17 @@ export const Sidebar = ({
 
         <button
           onClick={onOpenInbox}
-          className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+          className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'inbox'
-              ? 'bg-blue-600 text-white shadow-sm'
-              : 'text-slate-700 hover:bg-slate-100'
+              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-sm'
+              : 'text-slate-300 hover:bg-slate-800/60'
           }`}
         >
           <div className="flex items-center gap-2.5">
-            <Inbox className="w-4 h-4 text-orange-500" />
+            <Inbox className="w-4 h-4 text-orange-400" />
             <span>INBOX</span>
           </div>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-white font-bold">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-black font-black">
             {pendingRequestsCount > 0 ? `${pendingRequestsCount} New` : '4 New'}
           </span>
         </button>
@@ -142,15 +142,15 @@ export const Sidebar = ({
       {/* CREW GENRES (Category filters as specified in requirement 3) */}
       <div className="mb-5 flex-1">
         <div className="flex items-center justify-between px-3 mb-2">
-          <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-            CREW GENRES
+          <span className="text-[11px] font-bold tracking-wider text-amber-400/90 uppercase flex items-center gap-1.5">
+            <span>CREW GENRES</span>
           </span>
-          <Users className="w-3.5 h-3.5 text-slate-400" />
+          <Users className="w-3.5 h-3.5 text-slate-500" />
         </div>
 
         <div className="space-y-0.5 max-h-[340px] overflow-y-auto pr-1 scrollbar-thin">
           {filteredGenres.length === 0 ? (
-            <div className="text-[11px] text-slate-400 py-3 text-center">
+            <div className="text-[11px] text-slate-500 py-3 text-center">
               No matching category.
             </div>
           ) : (
@@ -170,19 +170,19 @@ export const Sidebar = ({
                   }}
                   className={`w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition-all group ${
                     isSelected
-                      ? 'bg-blue-50 text-blue-700 font-bold border border-blue-100 shadow-xs'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30 shadow-xs'
+                      : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-100'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <Icon className={`w-3.5 h-3.5 transition-colors ${
-                      isSelected ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600'
+                      isSelected ? 'text-amber-400' : 'text-slate-500 group-hover:text-slate-300'
                     }`} />
                     <span className="truncate">{genre.label}</span>
                   </div>
                   {talentCount > 0 && (
                     <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${
-                      isSelected ? 'bg-blue-200/60 text-blue-800' : 'bg-slate-100 text-slate-500'
+                      isSelected ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400'
                     }`}>
                       {talentCount}
                     </span>
@@ -198,28 +198,28 @@ export const Sidebar = ({
       <div className="mb-4">
         <button
           onClick={onOpenModeration}
-          className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-emerald-700 bg-emerald-50/70 border border-emerald-100 hover:bg-emerald-100/70 transition-all"
+          className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-emerald-400 bg-emerald-950/30 border border-emerald-800/40 hover:bg-emerald-950/50 transition-all"
         >
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>Safety Moderation</span>
           </div>
-          <span className="text-[10px] font-bold bg-emerald-200/80 px-1.5 py-0.5 rounded text-emerald-900">
+          <span className="text-[10px] font-bold bg-emerald-900/80 px-1.5 py-0.5 rounded text-emerald-200">
             15 Rule
           </span>
         </button>
       </div>
 
       {/* Bottom Dock: GOCREATORS AI ASSISTANT Quick Widget */}
-      <div className="pt-3 border-t border-slate-100">
+      <div className="pt-3 border-t border-slate-800/80">
         <div 
           onClick={onOpenAi}
-          className="bg-slate-900 text-white rounded-2xl p-3 cursor-pointer hover:bg-slate-800 transition-all shadow-md group relative overflow-hidden"
+          className="bg-[#111827] text-white rounded-2xl p-3 cursor-pointer hover:bg-slate-800/90 transition-all shadow-md group relative overflow-hidden border border-slate-800 hover:border-amber-500/30"
         >
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-              <span className="text-[11px] font-bold tracking-wide text-slate-200">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-[11px] font-bold tracking-wide text-slate-100">
                 GOCREATORS AI
               </span>
             </div>
@@ -230,7 +230,7 @@ export const Sidebar = ({
             "Suggest 3 unique visual approaches for the diner scene"
           </p>
 
-          <div className="flex items-center justify-between text-[10px] text-blue-400 font-semibold group-hover:text-blue-300">
+          <div className="flex items-center justify-between text-[10px] text-amber-400 font-semibold group-hover:text-amber-300">
             <span>Ask Crew Guide</span>
             <Zap className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </div>

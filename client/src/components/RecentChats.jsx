@@ -110,13 +110,13 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
   };
 
   return (
-    <div className="bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-xl p-4 flex flex-col justify-between">
+    <div className="bg-[#111827] text-white rounded-3xl border border-slate-800 shadow-xl p-4 flex flex-col justify-between">
       
       {/* Header matching screenshot */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
         <h3 className="text-xs font-black tracking-wider text-slate-200 uppercase flex items-center gap-2">
           <span>RECENT CHATS</span>
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
         </h3>
         <button className="text-slate-400 hover:text-white p-1">
           <MoreVertical className="w-4 h-4" />
@@ -134,7 +134,7 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
             <div
               key={partner._id || idx}
               onClick={() => openChatWithUser(partner)}
-              className="p-2.5 rounded-2xl bg-slate-800/70 hover:bg-slate-800 cursor-pointer transition-all border border-slate-700/50 hover:border-blue-500/50 group"
+              className="p-2.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800 cursor-pointer transition-all border border-slate-800 hover:border-amber-500/40 group"
             >
               <div className="flex items-start gap-2.5">
                 <img
@@ -145,10 +145,10 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
                       [{badgeText}]
                     </span>
-                    <span className="text-xs font-bold text-slate-100 group-hover:text-blue-400 transition-colors truncate">
+                    <span className="text-xs font-bold text-slate-100 group-hover:text-amber-400 transition-colors truncate">
                       {partner.name}
                     </span>
                   </div>
@@ -169,17 +169,17 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
           onClick={() => {
             if (chats[0]?.user) openChatWithUser(chats[0].user);
           }}
-          className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition-all border border-slate-700"
+          className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all border border-slate-700/80 hover:border-amber-500/30"
         >
           <span>New Message</span>
-          <Send className="w-3.5 h-3.5 text-blue-400" />
+          <Send className="w-3.5 h-3.5 text-amber-400" />
         </button>
       </div>
 
       {/* Interactive Chat Drawer Modal */}
       {activeConversation && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full h-[520px] shadow-2xl flex flex-col overflow-hidden text-white animate-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#111827] border border-slate-800 rounded-3xl max-w-lg w-full h-[520px] shadow-2xl flex flex-col overflow-hidden text-white animate-in zoom-in-95">
             
             {/* Chat Header */}
             <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
@@ -187,12 +187,12 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
                 <img
                   src={activeConversation.avatar}
                   alt={activeConversation.name}
-                  className="w-9 h-9 rounded-full object-cover ring-2 ring-blue-500/40"
+                  className="w-9 h-9 rounded-full object-cover ring-2 ring-amber-500/40"
                 />
                 <div>
                   <h4 className="text-sm font-bold text-slate-100 flex items-center gap-2">
                     {activeConversation.name}
-                    <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full border border-blue-500/30 font-medium">
+                    <span className="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
                       {activeConversation.role}
                     </span>
                   </h4>
@@ -222,7 +222,7 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
                     <div
                       className={`max-w-[80%] p-3 rounded-2xl ${
                         isMe
-                          ? 'bg-blue-600 text-white rounded-tr-xs'
+                          ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold rounded-tr-xs shadow-md'
                           : 'bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-xs'
                       }`}
                     >
@@ -240,14 +240,14 @@ export const RecentChats = ({ activeChatUser, onSelectChatUser }) => {
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
                 placeholder="Type reply..."
-                className="flex-1 bg-slate-800/80 px-3.5 py-2 rounded-xl text-xs text-white placeholder-slate-400 outline-none border border-slate-700 focus:border-blue-500"
+                className="flex-1 bg-slate-900 px-3.5 py-2 rounded-xl text-xs text-white placeholder-slate-500 outline-none border border-slate-700 focus:border-amber-500"
               />
               <button
                 type="submit"
                 disabled={!replyText.trim() || sending}
-                className="p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all disabled:opacity-40"
+                className="p-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black rounded-xl transition-all disabled:opacity-40"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-4 h-4 stroke-[2.5]" />
               </button>
             </form>
 

@@ -90,15 +90,15 @@ export const ProjectChatModal = ({ project, isOpen, onClose }) => {
         {/* Header */}
         <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
               <Film className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-black tracking-wide text-slate-100">
+                <h3 className="text-sm font-black tracking-wide text-white">
                   {project.title}
                 </h3>
-                <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full border border-blue-500/30 font-semibold">
+                <span className="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
                   Crew Room
                 </span>
               </div>
@@ -121,7 +121,7 @@ export const ProjectChatModal = ({ project, isOpen, onClose }) => {
           {project.crew && project.crew.map((member, i) => (
             <div 
               key={i} 
-              className="flex items-center gap-1.5 px-2 py-1 rounded-xl bg-slate-800/80 border border-slate-700/60 flex-shrink-0"
+              className="flex items-center gap-1.5 px-2 py-1 rounded-xl bg-slate-900 border border-slate-800 flex-shrink-0"
               title={`${member.user?.name || 'Crew'} (${member.role})`}
             >
               <img
@@ -132,7 +132,7 @@ export const ProjectChatModal = ({ project, isOpen, onClose }) => {
               <span className="text-[11px] font-semibold text-slate-300">
                 {member.user?.name ? member.user.name.split(' ')[0] : 'Crew'}
               </span>
-              <span className="text-[9px] text-blue-400 font-bold">
+              <span className="text-[9px] text-amber-400 font-bold">
                 [{member.role}]
               </span>
             </div>
@@ -154,7 +154,7 @@ export const ProjectChatModal = ({ project, isOpen, onClose }) => {
                   <span className="text-[10px] font-bold text-slate-400">
                     {msg.sender?.name || 'Crew Member'}
                   </span>
-                  <span className="text-[9px] font-mono font-bold bg-blue-500/20 text-blue-300 px-1.5 py-0.2 rounded border border-blue-500/30">
+                  <span className="text-[9px] font-mono font-bold bg-amber-500/10 text-amber-400 px-1.5 py-0.2 rounded border border-amber-500/30">
                     [{badge}]
                   </span>
                 </div>
@@ -162,7 +162,7 @@ export const ProjectChatModal = ({ project, isOpen, onClose }) => {
                 <div 
                   className={`max-w-[85%] p-3.5 rounded-2xl leading-relaxed ${
                     isMe
-                      ? 'bg-blue-600 text-white rounded-tr-xs shadow-md'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold rounded-tr-xs shadow-md'
                       : 'bg-slate-800 text-slate-200 border border-slate-700/80 rounded-tl-xs'
                   }`}
                 >
@@ -181,14 +181,14 @@ export const ProjectChatModal = ({ project, isOpen, onClose }) => {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Post update or message to all project crew members..."
-            className="flex-1 bg-slate-800/80 px-4 py-2.5 rounded-2xl text-xs text-white placeholder-slate-500 outline-none border border-slate-700 focus:border-blue-500"
+            className="flex-1 bg-slate-900 px-4 py-2.5 rounded-2xl text-xs text-white placeholder-slate-500 outline-none border border-slate-700 focus:border-amber-500"
           />
           <button
             type="submit"
             disabled={!newMessage.trim() || sending}
-            className="p-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl transition-all disabled:opacity-40"
+            className="p-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black rounded-2xl transition-all disabled:opacity-40"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-4 h-4 stroke-[2.5]" />
           </button>
         </form>
 

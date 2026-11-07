@@ -85,19 +85,19 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
   };
 
   return (
-    <div className="bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-2xl flex flex-col h-full max-h-[820px] overflow-hidden">
+    <div className="bg-[#111827] text-white rounded-3xl border border-slate-800 shadow-2xl flex flex-col h-full max-h-[820px] overflow-hidden">
 
       {/* Header matching mockup */}
-      <div className="p-4 bg-slate-950/80 border-b border-slate-800/80 flex items-center justify-between">
+      <div className="p-4 bg-slate-950/90 border-b border-slate-800/80 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400">
+          <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
             <Sparkles className="w-4 h-4 animate-pulse" />
           </div>
           <div>
             <h3 className="text-xs font-black tracking-wider text-slate-100 uppercase">
               GOCREATORS AI ASSISTANT
             </h3>
-            <span className="text-[10px] text-blue-400 font-medium flex items-center gap-1">
+            <span className="text-[10px] text-amber-400 font-medium flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
               Online • Cinema Guide
             </span>
@@ -129,8 +129,8 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
           >
             <div
               className={`max-w-[90%] rounded-2xl p-3.5 leading-relaxed ${msg.sender === 'user'
-                  ? 'bg-blue-600 text-white font-medium rounded-tr-xs shadow-md'
-                  : 'bg-slate-800/90 text-slate-200 border border-slate-700/60 rounded-tl-xs shadow-inner'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold rounded-tr-xs shadow-md'
+                  : 'bg-slate-900/90 text-slate-200 border border-slate-800 rounded-tl-xs shadow-inner'
                 }`}
             >
               <div className="whitespace-pre-wrap space-y-1">
@@ -139,20 +139,20 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
 
               {/* Matched Crew Shortcuts if returned */}
               {msg.matchedCrew && msg.matchedCrew.length > 0 && (
-                <div className="mt-3 pt-2.5 border-t border-slate-700/80 space-y-1.5">
-                  <div className="text-[10px] font-bold text-blue-300 uppercase tracking-wider">
+                <div className="mt-3 pt-2.5 border-t border-slate-800 space-y-1.5">
+                  <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
                     Recommended Talent:
                   </div>
                   {msg.matchedCrew.map((c) => (
                     <div
                       key={c._id}
                       onClick={() => onNavigateCategory && onNavigateCategory(c.role.toLowerCase())}
-                      className="flex items-center justify-between p-1.5 bg-slate-900/60 rounded-lg hover:bg-slate-900 cursor-pointer border border-slate-700/40"
+                      className="flex items-center justify-between p-1.5 bg-slate-950/60 rounded-lg hover:bg-slate-950 cursor-pointer border border-slate-800 hover:border-amber-500/40"
                     >
                       <div className="flex items-center gap-2">
                         <img src={c.avatar} alt={c.name} className="w-5 h-5 rounded-full object-cover" />
                         <span className="text-[11px] font-semibold text-slate-200">{c.name}</span>
-                        <span className="text-[10px] text-blue-400">({c.role})</span>
+                        <span className="text-[10px] text-amber-400">({c.role})</span>
                       </div>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
@@ -168,7 +168,7 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
                   <button
                     key={i}
                     onClick={() => handleSendMessage(sug)}
-                    className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-slate-800 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-all text-left"
+                    className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-slate-900 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 transition-all text-left"
                   >
                     {sug}
                   </button>
@@ -179,7 +179,7 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
         ))}
 
         {loading && (
-          <div className="flex items-center gap-2 text-xs text-blue-400 p-2">
+          <div className="flex items-center gap-2 text-xs text-amber-400 p-2">
             <Sparkles className="w-3.5 h-3.5 animate-spin" />
             <span>Consulting cinema production knowledge base...</span>
           </div>
@@ -195,7 +195,7 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
             e.preventDefault();
             handleSendMessage();
           }}
-          className="flex items-center gap-2 bg-slate-800/80 rounded-2xl px-3 py-1.5 border border-slate-700 focus-within:border-blue-500"
+          className="flex items-center gap-2 bg-slate-900 rounded-2xl px-3 py-1.5 border border-slate-800 focus-within:border-amber-500"
         >
           <input
             type="text"
@@ -207,9 +207,9 @@ export const AiAssistant = ({ onClose, onNavigateCategory }) => {
           <button
             type="submit"
             disabled={!inputText.trim() || loading}
-            className="p-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            className="p-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black disabled:opacity-30 disabled:cursor-not-allowed transition-all"
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
         </form>
       </div>

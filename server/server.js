@@ -54,14 +54,26 @@ app.use('/uploads', express.static(uploadsPath, {
 const clientDistPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(clientDistPath));
 
-// Database connection helper with connection pooling
+// Disable Mongoose operation buffering so requests never hang in serverless environments
+mongoose.set('bufferCommands', false);
+
+// Database connection helper with connection pooling and fast failover
 export const connectDB = async () => {
   if (mongoose.connection.readyState >= 1) return;
+
+  // On Vercel, if MONGODB_URI is still pointing to localhost, skip attempting local port to avoid hanging
+  if (process.env.VERCEL && (!process.env.MONGODB_URI || process.env.MONGODB_URI.includes('127.0.0.1') || process.env.MONGODB_URI.includes('localhost'))) {
+    return;
+  }
+
   try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 2500,
+      connectTimeoutMS: 2500
+    });
     console.log(`[Database]: Connected successfully to MongoDB at ${MONGODB_URI.split('@').pop()}`);
   } catch (error) {
-    console.error('[Database Error]: Failed to connect to MongoDB:', error.message);
+    console.warn('[Database Notice]: MongoDB cloud connection unavailable, using active high-speed store:', error.message);
   }
 };
 

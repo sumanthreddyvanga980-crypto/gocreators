@@ -3,8 +3,8 @@ node_modules/
 client/node_modules/
 server/node_modules/
 
-# Local Database files
-data/
+# Local Database files (root data directory only)
+/data/
 
 # Environment variables & secrets
 .env

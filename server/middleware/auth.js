@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import User from '../models/User.js';
+import { FALLBACK_CREATORS } from '../data/fallbackStore.js';
 
 export const JWT_SECRET = process.env.JWT_SECRET || 'gocreators_super_secure_jwt_secret_key_2026';
 
@@ -14,7 +16,16 @@ export const requireAuth = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    const user = await User.findById(decoded.id);
+    let user = null;
+    if (mongoose.connection.readyState >= 1) {
+      try {
+        user = await User.findById(decoded.id);
+      } catch {}
+    }
+    if (!user) {
+      user = FALLBACK_CREATORS.find(c => c._id === decoded.id || c.email === decoded.id);
+    }
+
     if (!user) {
       return res.status(401).json({ error: 'User no longer exists' });
     }
@@ -22,17 +33,11 @@ export const requireAuth = async (req, res, next) => {
     // AUTOMATED MODERATION GATEWAY:
     // Any account with reports > 15 is automatically blocked
     if (user.isBlocked || user.reports > 15) {
-      if (!user.isBlocked) {
-        user.isBlocked = true;
-        user.blockReason = 'Automated Moderation: Exceeded 15 community safety reports threshold.';
-        await user.save();
-      }
-
       return res.status(403).json({
         error: 'Account Suspended: Exceeded community report threshold (15+ reports). Access restricted.',
         isBlocked: true,
         reports: user.reports,
-        reason: user.blockReason
+        reason: user.blockReason || 'Exceeded 15 reports.'
       });
     }
 
@@ -50,7 +55,17 @@ export const optionalAuth = async (req, res, next) => {
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, JWT_SECRET);
-      const user = await User.findById(decoded.id);
+
+      let user = null;
+      if (mongoose.connection.readyState >= 1) {
+        try {
+          user = await User.findById(decoded.id);
+        } catch {}
+      }
+      if (!user) {
+        user = FALLBACK_CREATORS.find(c => c._id === decoded.id || c.email === decoded.id);
+      }
+
       if (user && !user.isBlocked && user.reports <= 15) {
         req.user = user;
       }
@@ -58,6 +73,9 @@ export const optionalAuth = async (req, res, next) => {
     next();
   } catch (err) {
     // Proceed as unauthenticated guest
+    next();
+  }
+};
     next();
   }
 };

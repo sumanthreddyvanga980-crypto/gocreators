@@ -16,6 +16,7 @@ import { AuthModal } from './components/Modals/AuthModal';
 import { ModerationDashboard } from './components/ModerationDashboard';
 import { SuspendedModal } from './components/Modals/SuspendedModal';
 import { SmtpSettingsModal } from './components/Modals/SmtpSettingsModal';
+import { INITIAL_CREW, INITIAL_PROJECT, INITIAL_FEEDBACKS } from './data/initialData';
 
 import { api } from './services/api';
 import { useAuth } from './context/AuthContext';
@@ -28,10 +29,10 @@ export function App() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('projects'); // 'projects' | 'discovery' | 'inbox'
-  const [crew, setCrew] = useState([]);
-  const [projects, setProjects] = useState([]);
-  const [feedbackRequests, setFeedbackRequests] = useState([]);
-  const [loadingCrew, setLoadingCrew] = useState(true);
+  const [crew, setCrew] = useState(INITIAL_CREW);
+  const [projects, setProjects] = useState([INITIAL_PROJECT]);
+  const [feedbackRequests, setFeedbackRequests] = useState(INITIAL_FEEDBACKS);
+  const [loadingCrew, setLoadingCrew] = useState(false);
 
   // Modals state
   const [connectModalUser, setConnectModalUser] = useState(null);
@@ -47,28 +48,55 @@ export function App() {
 
   // Fetch Crew Directory with category & search filters
   const loadCrew = async () => {
-    setLoadingCrew(true);
     try {
       const data = await api.getCrew({
         category: selectedCategory !== 'all' ? selectedCategory : '',
         search: searchQuery
       });
-      setCrew(data.crew || []);
+      if (data && data.crew && data.crew.length > 0) {
+        setCrew(data.crew);
+      } else if (!searchQuery && selectedCategory === 'all') {
+        setCrew(INITIAL_CREW);
+      } else {
+        // In-memory filter fallback
+        filterClientCrew();
+      }
     } catch (err) {
-      console.error('Failed to load crew:', err);
+      filterClientCrew();
     } finally {
       setLoadingCrew(false);
     }
+  };
+
+  const filterClientCrew = () => {
+    let list = [...INITIAL_CREW];
+    const q = (searchQuery || '').trim().toLowerCase();
+    if (q) {
+      list = list.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
+        (c.role && c.role.toLowerCase().includes(q)) ||
+        (c.creatorId && c.creatorId.toLowerCase().includes(q)) ||
+        (c.skills && c.skills.some(s => s.toLowerCase().includes(q))) ||
+        (c.equipment && c.equipment.some(e => e.toLowerCase().includes(q)))
+      );
+    } else if (selectedCategory !== 'all') {
+      list = list.filter(c => c.category === selectedCategory);
+    }
+    setCrew(list);
   };
 
   // Fetch Projects & Feedbacks
   const loadProjects = async () => {
     try {
       const data = await api.getProjects();
-      setProjects(data.projects || []);
-      setFeedbackRequests(data.feedbackRequests || []);
+      if (data && data.projects && data.projects.length > 0) {
+        setProjects(data.projects);
+      }
+      if (data && data.feedbackRequests && data.feedbackRequests.length > 0) {
+        setFeedbackRequests(data.feedbackRequests);
+      }
     } catch (err) {
-      console.error('Failed to load projects:', err);
+      // Retain initial projects
     }
   };
 

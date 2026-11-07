@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import Connection from '../models/Connection.js';
 import User from '../models/User.js';
 import { requireAuth } from '../middleware/auth.js';
@@ -8,6 +9,15 @@ const router = express.Router();
 // GET /api/connections - Get all incoming, outgoing, and active connections
 router.get('/', requireAuth, async (req, res) => {
   try {
+    if (mongoose.connection.readyState < 1) {
+      return res.json({
+        incoming: [],
+        outgoing: [],
+        connected: [],
+        totalConnected: 0
+      });
+    }
+
     const userId = req.user._id;
 
     // Incoming requests (Pending, addressed to caller)
